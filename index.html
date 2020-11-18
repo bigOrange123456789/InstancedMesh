@@ -6,14 +6,14 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 </head>
 <body>
-
-<script type="module">
-	import * as THREE from './three.module.js';
+<script src="three.js"></script>
+<script>
 	var camera, scene, renderer;
 	var mesh;
 	var amount =10;//立方体的边长
 	var count = 1000;//立方体中的单元个数
 	var dummy = new THREE.Object3D();
+	var obj = new THREE.Object3D();
 
 	init();
 	animate();
@@ -32,8 +32,9 @@
 			geometry.scale( 0.5, 0.5, 0.5 );
 			var material = new THREE.MeshNormalMaterial();
 			mesh = new THREE.InstancedMesh( geometry, material, count );
+			// obj.add(mesh);scene.add(obj);//
 			scene.add( mesh );
-			console.log(mesh);
+			//console.log(mesh);
 		} );
 		renderer = new THREE.WebGLRenderer( { antialias: true } );
 		renderer.setSize( window.innerWidth, window.innerHeight );

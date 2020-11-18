@@ -10,7 +10,6 @@
 <script type="module">
 
 	import * as THREE from './three.module.js';
-	import { GUI } from './dat.gui.module.js';
 
 	var camera, scene, renderer;
 
@@ -40,8 +39,6 @@
 			mesh = new THREE.InstancedMesh( geometry, material, count );
 			scene.add( mesh );
 
-			var gui = new GUI();
-			gui.add( mesh, 'count', 0, count );
 		} );
 		renderer = new THREE.WebGLRenderer( { antialias: true } );
 		renderer.setPixelRatio( window.devicePixelRatio );

@@ -2675,28 +2675,7 @@ GUI.toggleHide = function () {
 	} );
 
 };
-GUI.CLASS_AUTO_PLACE = 'a';
-GUI.CLASS_AUTO_PLACE_CONTAINER = 'ac';
-GUI.CLASS_MAIN = 'main';
-GUI.CLASS_CONTROLLER_ROW = 'cr';
-GUI.CLASS_TOO_TALL = 'taller-than-window';
-GUI.CLASS_CLOSED = 'closed';
-GUI.CLASS_CLOSE_BUTTON = 'close-button';
-GUI.CLASS_CLOSE_TOP = 'close-top';
-GUI.CLASS_CLOSE_BOTTOM = 'close-bottom';
-GUI.CLASS_DRAG = 'drag';
-GUI.DEFAULT_WIDTH = 245;
-GUI.TEXT_CLOSED = 'Close Controls';
-GUI.TEXT_OPEN = 'Open Controls';
-GUI._keydownHandler = function ( e ) {
 
-	if ( document.activeElement.type !== 'text' && ( e.which === HIDE_KEY_CODE || e.keyCode === HIDE_KEY_CODE ) ) {
-
-		GUI.toggleHide();
-
-	}
-
-};
 dom.bind( window, 'keydown', GUI._keydownHandler, false );
 Common.extend( GUI.prototype,
 	{
@@ -2704,13 +2683,6 @@ Common.extend( GUI.prototype,
 
 			return _add( this, object, property, {
 				factoryArgs: Array.prototype.slice.call( arguments, 2 )
-			} );
-
-		},
-		addColor: function addColor( object, property ) {
-
-			return _add( this, object, property, {
-				color: true
 			} );
 
 		},
@@ -2800,11 +2772,6 @@ Common.extend( GUI.prototype,
 		open: function open() {
 
 			this.closed = false;
-
-		},
-		close: function close() {
-
-			this.closed = true;
 
 		},
 		hide: function hide() {

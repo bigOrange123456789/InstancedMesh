@@ -42,18 +42,11 @@
 
 			var gui = new GUI();
 			gui.add( mesh, 'count', 0, count );
-
 		} );
-
-		//
-
 		renderer = new THREE.WebGLRenderer( { antialias: true } );
 		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		document.body.appendChild( renderer.domElement );
-
-		//
-
 	}
 
 	function animate() {

@@ -11,8 +11,8 @@
 	import * as THREE from './three.module.js';
 	var camera, scene, renderer;
 	var mesh;
-	var amount = parseInt( window.location.search.substr( 1 ) ) || 10;
-	var count = Math.pow( amount, 3 );
+	var amount =10;//立方体的边长
+	var count = 1000;//立方体中的单元个数
 	var dummy = new THREE.Object3D();
 
 	init();
@@ -20,20 +20,22 @@
 
 	function init() {
 		camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 0.1, 100 );
-		camera.position.set( amount * 0.9, amount * 0.9, amount * 0.9 );
+		camera.position.set( 19, 19, 19);
 		camera.lookAt( 0, 0, 0 );
 		scene = new THREE.Scene();
-		var loader = new THREE.BufferGeometryLoader();
+		var loader = new THREE.BufferGeometryLoader();//BufferGeometry缓冲区几何结构
+		//BufferGeometry: position index normal
+		//
 		loader.load( './suzanne_buffergeometry.json', function ( geometry ) {
-			geometry.computeVertexNormals();
+			geometry.computeVertexNormals();//计算顶点法线
+			console.log(geometry);
 			geometry.scale( 0.5, 0.5, 0.5 );
 			var material = new THREE.MeshNormalMaterial();
 			mesh = new THREE.InstancedMesh( geometry, material, count );
 			scene.add( mesh );
-
+			console.log(mesh);
 		} );
 		renderer = new THREE.WebGLRenderer( { antialias: true } );
-		renderer.setPixelRatio( window.devicePixelRatio );
 		renderer.setSize( window.innerWidth, window.innerHeight );
 		document.body.appendChild( renderer.domElement );
 	}
@@ -52,13 +54,12 @@
 			var offset = ( amount - 1 ) / 2;
 			for ( var x = 0; x < amount; x ++ )
 				for ( var y = 0; y < amount; y ++ )
-					for ( var z = 0; z < amount; z ++ ) {
+					for ( var z = 0; z < amount; z ++ ) {//dummy是一个3D对象
 						dummy.position.set( offset - x, offset - y, offset - z );
-						dummy.rotation.y = ( Math.sin( x / 4 + time ) + Math.sin( y / 4 + time ) + Math.sin( z / 4 + time ) );
+						dummy.rotation.y = ( Math.sin( x/4 + time ) + Math.sin( y / 4 + time ) + Math.sin( z / 4 + time ) );
 						dummy.rotation.z = dummy.rotation.y * 2;
-						dummy.updateMatrix();
-						mesh.setMatrixAt( i ++, dummy.matrix );
-
+						dummy.updateMatrix();//由位置计算齐次坐标变换矩阵
+						mesh.setMatrixAt(i++, dummy.matrix);
 					}
 			mesh.instanceMatrix.needsUpdate = true;
 		}
